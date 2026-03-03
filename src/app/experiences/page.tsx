@@ -30,7 +30,6 @@ export default function ExperiencesPage() {
                 }
             );
         });
-
         gsap.fromTo(".sidebar-item",
             { opacity: 0, x: 20 },
             {

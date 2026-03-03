@@ -1,6 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
 import { useRef } from "react";
@@ -100,15 +102,33 @@ export default function Home() {
                 <section ref={(el) => addToRefs(el, 0)} className="absolute inset-0 flex flex-col justify-center items-center p-6 md:p-10">
                     <div className="text-center z-10 text-black max-w-[95vw] md:max-w-[85vw]">
                         <p className="inline-block text-[0.6rem] md:text-sm tracking-[0.3em] md:tracking-[0.5em] uppercase mb-4 md:mb-6 px-3 py-1.5 md:px-4 md:py-2 bg-white font-inter">
-                            Doyle Omachonu · CEO & Founder of Cribnosh
+                            Hi, i am Doyle Omachonu · CEO & Founder of Cribnosh and
                         </p>
                         <h1 className="text-[12vw] md:text-[7vw] leading-[0.9] font-bold tracking-tighter uppercase font-oswald mb-6 md:mb-8">
-                            <span className="bg-white px-4 md:px-6 py-1.5 md:py-2 box-decoration-clone inline-block">Empowering the Hidden Economy of Food creators</span>
+                            <span className="bg-white px-4 md:px-6 py-1.5 md:py-2 box-decoration-clone inline-block">I am empowering the Hidden Economy of Food creators</span>
                         </h1>
                         <div className="bg-white inline-block px-4 md:px-6 py-3 md:py-4">
                             <p className="text-base md:text-2xl font-inter max-w-5xl mx-auto leading-relaxed">
                                 A visionary FoodTech platform democratizing the UK’s culinary landscape through data, logistics, and community.
                             </p>
+                        </div>
+
+                        {/* HERO BUTTONS */}
+                        <div className="flex flex-wrap gap-4 mt-8 md:mt-12 pointer-events-auto justify-center">
+                            <Link 
+                                href="/letter"
+                                className="px-8 md:px-10 py-3 md:py-4 bg-black text-white font-oswald uppercase tracking-widest text-sm md:text-base hover:bg-white hover:text-black border border-black transition-all duration-300"
+                            >
+                                Open Letter
+                            </Link>
+                            <a 
+                                href="https://www.linkedin.com/in/doyle-omachonu-9907981a0/"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="px-8 md:px-10 py-3 md:py-4 bg-white text-black font-oswald uppercase tracking-widest text-sm md:text-base hover:bg-black hover:text-white border border-black transition-all duration-300"
+                            >
+                                Connect on LinkedIn
+                            </a>
                         </div>
                     </div>
                     {/* Overlay gradient for depth */}
@@ -121,9 +141,13 @@ export default function Home() {
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
                             {/* PORTRAIT PLACEHOLDER */}
                             <div className="lg:col-span-4 aspect-[4/5] bg-white border border-black/5 relative overflow-hidden group shadow-xl md:shadow-2xl">
-                                <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-inter text-[10px] md:text-xs uppercase tracking-[0.2em] text-center p-6 md:p-8">
-                                    [ Portrait of Doyle ]
-                                </div>
+                                <Image 
+                                    src="/doyle-omachonu.png"
+                                    alt="Portrait of Doyle Omachonu"
+                                    fill
+                                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                    priority
+                                />
                             </div>
 
                             <div className="lg:col-span-8">
@@ -191,7 +215,7 @@ export default function Home() {
                         <div className="w-[85vw] md:w-[60vw] h-[60vh] md:h-[70vh] bg-white/90 text-black p-6 md:p-12 flex flex-col justify-between shrink-0 relative overflow-hidden group border border-black/10 backdrop-blur-md">
                             <div className="text-[10px] md:text-sm tracking-widest uppercase opacity-40 font-inter">Scaling & Innovation</div>
                             <div className="relative z-10">
-                                <h3 className="text-3xl md:text-6xl font-oswald uppercase mb-4 md:mb-6 leading-tight">Empowering the<br />Gig Economy</h3>
+                                <h3 className="text-3xl md:text-6xl font-oswald uppercase mb-4 md:mb-6 leading-tight">I am empowering the<br />Gig Economy</h3>
                                 <p className="font-inter opacity-70 max-w-xl text-sm md:text-xl leading-relaxed">
                                     Using creator-centric technology to advocate for the empowerment of the gig economy, Doyle focuses on establishing the gold standard for homemade food delivery across the UK through robust partnership ecosystems.
                                 </p>

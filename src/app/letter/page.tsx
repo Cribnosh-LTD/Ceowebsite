@@ -1,6 +1,7 @@
 "use client";
 
 import Header from "@/components/Header";
+import Image from "next/image";
 import SmoothScroll from "@/components/SmoothScroll";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
@@ -36,9 +37,13 @@ export default function LetterPage() {
                         {/* PORTRAIT SIDEBAR - Moves to top on mobile */}
                         <div className="lg:col-span-4 lg:order-2 sticky top-24 md:top-40 mb-8 md:mb-0">
                             <div className="aspect-[3/4] bg-white border border-gray-200 shadow-lg md:shadow-xl relative overflow-hidden group">
-                                <div className="absolute inset-0 flex items-center justify-center text-gray-300 font-inter text-[8px] md:text-[10px] uppercase tracking-[0.3em] text-center p-8 md:p-12">
-                                    [ Portrait of Doyle ]
-                                </div>
+                                <Image 
+                                    src="/doyle-omachonu.png"
+                                    alt="Portrait of Doyle Omachonu"
+                                    fill
+                                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                    priority
+                                />
                             </div>
                             <div className="mt-4 md:mt-6 text-[8px] md:text-[10px] uppercase tracking-widest text-gray-400 font-oswald text-right">
                                 CEO & Founder
@@ -63,12 +68,23 @@ export default function LetterPage() {
                             </p>
 
                             <p>
-                                We are here to bridge the gap between home-cooked heritage and modern convenience. By providing the technology, logistics, and data-driven insights you need, we are empowering the &quot;hidden economy&quot; of home chefs to thrive.
+                                We are here to bridge the gap between home-cooked heritage and modern convenience. By providing the technology, logistics, and data-driven insights you need, we are I am empowering the &quot;hidden economy&quot; of home chefs to thrive.
                             </p>
 
                             <p>
                                 This is your chance to share your craft with a wider audience. Join us, and let&apos;s redefine what food delivery means, together.
                             </p>
+
+                            <div className="pt-4 md:pt-6">
+                                <a 
+                                    href="https://cribnosh.co.uk" 
+                                    target="_blank" 
+                                    rel="noreferrer"
+                                    className="inline-block px-8 py-4 bg-black text-white font-oswald uppercase tracking-widest text-sm md:text-base hover:bg-gray-800 transition-all duration-300"
+                                >
+                                    take a look at my product
+                                </a>
+                            </div>
 
                             <div className="pt-8 md:pt-12 border-t border-gray-200 mt-12 md:mt-16">
                                 <p className="font-oswald uppercase tracking-widest text-[10px] md:text-sm opacity-50 mb-3 md:mb-4">Sincerely,</p>
