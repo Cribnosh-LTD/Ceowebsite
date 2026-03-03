@@ -6,8 +6,8 @@ const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Doyle Omachonu ",
-  description: "A  of the Doyle Omachonu website interaction model",
+  title: "Doyle Omachonu | CEO of Cribnosh",
+  description: "Personal bio and leadership profile of Doyle Omachonu, CEO of Cribnosh.",
 };
 
 export default function RootLayout({

@@ -9,7 +9,7 @@
 
 body {
   color: black;
-  background: white;
+  background: transparent;
   min-height: 100vh;
   font-family: var(--font-inter), sans-serif;
   /* Explicit default */
