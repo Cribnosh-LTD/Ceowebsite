@@ -8,7 +8,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-
 export default function ExperiencesPage() {
     const container = useRef<HTMLDivElement>(null);
     const timeline = useRef<HTMLDivElement>(null);
