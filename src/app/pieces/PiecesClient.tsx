@@ -6,43 +6,11 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-interface Piece {
-    title: string;
-    source: string;
-    date: string;
-    url: string;
-    category: "By Me" | "About Me";
-    description: string;
-}
-
-const pieces: Piece[] = [
-    {
-        title: "An Open Invitation",
-        source: "Personal Letter",
-        date: "2026",
-        url: "/letter",
-        category: "By Me",
-        description: "A message to the food creators and the hidden culinary economy in the UK."
-    },
-    {
-        title: "Cribnosh and the Future of Food Delivery",
-        source: "Cribnosh.co.uk",
-        date: "2025",
-        url: "https://cribnosh.co.uk",
-        category: "By Me",
-        description: "An overview of how we're supporting independent food creators through technology and logistics."
-    },
-    {
-        title: "FoodTech in the UK: Supporting Local Talent",
-        source: "External Publication",
-        date: "2025",
-        url: "#",
-        category: "About Me",
-        description: "A look at the role of Cribnosh in providing digital storefronts for independent chefs."
-    }
-];
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 
 export default function PiecesClient() {
+    const pieces = useQuery(api.pieces.get);
     const container = useRef<HTMLDivElement>(null);
     const content = useRef<HTMLDivElement>(null);
 
@@ -53,7 +21,7 @@ export default function PiecesClient() {
             { opacity: 0, y: 30 }, 
             { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out", delay: 0.2 }
         );
-    }, []);
+    }, [pieces]);
 
     return (
         <SmoothScroll>
@@ -69,36 +37,42 @@ export default function PiecesClient() {
                     </h1>
 
                     <div ref={content} className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                        {pieces.map((piece, index) => (
-                            <a 
-                                key={index}
-                                href={piece.url}
-                                target={piece.url.startsWith("http") ? "_blank" : "_self"}
-                                rel={piece.url.startsWith("http") ? "noreferrer" : ""}
-                                className="group block bg-white border border-gray-100 p-8 md:p-10 hover:border-black transition-colors duration-500 shadow-sm hover:shadow-xl"
-                            >
-                                <div className="flex justify-between items-start mb-6">
-                                    <span className="text-[10px] tracking-widest uppercase opacity-40 font-oswald">
-                                        {piece.category}
-                                    </span>
-                                    <span className="text-[10px] tracking-widest uppercase opacity-40 font-oswald">
-                                        {piece.date}
-                                    </span>
-                                </div>
-                                <h2 className="text-2xl md:text-3xl font-oswald uppercase mb-4 group-hover:text-black leading-tight">
-                                    {piece.title}
-                                </h2>
-                                <p className="text-sm md:text-base text-gray-500 mb-8 font-inter leading-relaxed">
-                                    {piece.description}
-                                </p>
-                                <div className="flex items-center gap-2 text-[10px] tracking-widest uppercase font-oswald opacity-60 group-hover:opacity-100 transition-opacity">
-                                    Source: {piece.source}
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M7 17l9.2-9.2M17 17V7H7" />
-                                    </svg>
-                                </div>
-                            </a>
-                        ))}
+                        {pieces === undefined ? (
+                            <div className="col-span-full text-center py-20 opacity-50 uppercase tracking-widest text-sm">Loading...</div>
+                        ) : pieces.length === 0 ? (
+                            <div className="col-span-full text-center py-20 opacity-50 uppercase tracking-widest text-sm">No pieces found.</div>
+                        ) : (
+                            pieces.map((piece, index) => (
+                                <a 
+                                    key={index}
+                                    href={piece.url}
+                                    target={piece.url.startsWith("http") ? "_blank" : "_self"}
+                                    rel={piece.url.startsWith("http") ? "noreferrer" : ""}
+                                    className="group block bg-white border border-gray-100 p-8 md:p-10 hover:border-black transition-colors duration-500 shadow-sm hover:shadow-xl"
+                                >
+                                    <div className="flex justify-between items-start mb-6">
+                                        <span className="text-[10px] tracking-widest uppercase opacity-40 font-oswald">
+                                            {piece.category}
+                                        </span>
+                                        <span className="text-[10px] tracking-widest uppercase opacity-40 font-oswald">
+                                            {piece.date}
+                                        </span>
+                                    </div>
+                                    <h2 className="text-2xl md:text-3xl font-oswald uppercase mb-4 group-hover:text-black leading-tight">
+                                        {piece.title}
+                                    </h2>
+                                    <p className="text-sm md:text-base text-gray-500 mb-8 font-inter leading-relaxed">
+                                        {piece.description}
+                                    </p>
+                                    <div className="flex items-center gap-2 text-[10px] tracking-widest uppercase font-oswald opacity-60 group-hover:opacity-100 transition-opacity">
+                                        Source: {piece.source}
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M7 17l9.2-9.2M17 17V7H7" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            ))
+                        )}
                     </div>
                 </div>
             </main>
