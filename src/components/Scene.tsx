@@ -10,14 +10,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface DistortMaterialProps extends THREE.MeshPhysicalMaterial {
-    distort: number;
-    speed: number;
-}
-
 function Blob() {
     const meshRef = useRef<THREE.Mesh>(null);
-    const materialRef = useRef<DistortMaterialProps>(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const materialRef = useRef<any>(null);
 
     useGSAP(() => {
         if (!meshRef.current || !materialRef.current) return;
