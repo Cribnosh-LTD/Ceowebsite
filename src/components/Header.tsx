@@ -25,6 +25,7 @@ export default function Header() {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex gap-10 text-sm font-medium tracking-widest uppercase">
                 <Link href="/" className="hover:opacity-50 transition-opacity">Home</Link>
+                <Link href="/pieces" className="hover:opacity-50 transition-opacity">Pieces</Link>
                 <Link href="/letter" className="hover:opacity-50 transition-opacity">Open Letter</Link>
                 <Link href="/experiences" className="hover:opacity-50 transition-opacity">Experiences</Link>
             </nav>
@@ -59,6 +60,7 @@ export default function Header() {
             )}>
                 <nav className="flex flex-col items-center gap-8 text-2xl font-oswald uppercase tracking-widest text-black">
                     <Link href="/" onClick={toggleMenu} className="hover:text-gray-400 transition-colors">Home</Link>
+                    <Link href="/pieces" onClick={toggleMenu} className="hover:text-gray-400 transition-colors">Pieces</Link>
                     <Link href="/letter" onClick={toggleMenu} className="hover:text-gray-400 transition-colors">Open Letter</Link>
                     <Link href="/experiences" onClick={toggleMenu} className="hover:text-gray-400 transition-colors">Experiences</Link>
                 </nav>
