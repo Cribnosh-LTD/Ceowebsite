@@ -32,6 +32,8 @@ export default function HomeClient() {
     const container = useRef<HTMLDivElement>(null);
     const portfolioTrack = useRef<HTMLDivElement>(null);
     const sections = useRef<(HTMLElement | null)[]>([]);
+    const mobileInnerScrollClass =
+        "overflow-y-auto md:overflow-hidden overscroll-y-contain [touch-action:pan-y] [-webkit-overflow-scrolling:touch]";
 
     useGSAP(() => {
         if (!container.current) return;
@@ -96,10 +98,17 @@ export default function HomeClient() {
             <Scene />
 
             {/* FIXED VIEWPORT */}
-            <main ref={container} className="fixed top-0 left-0 w-full h-screen z-10 font-sans text-black">
+            <main ref={container} className="fixed top-0 left-0 w-full h-[100dvh] z-10 font-sans text-black">
 
                 {/* --- SECTION 1: HERO --- */}
-                <section ref={(el) => addToRefs(el, 0)} className="absolute inset-0 flex flex-col justify-center items-center p-6 md:p-10 pointer-events-none">
+                <section
+                    ref={(el) => addToRefs(el, 0)}
+                    data-lenis-prevent
+                    className={cn(
+                        "absolute inset-0 flex flex-col justify-center items-center p-6 pt-24 pb-10 md:p-10 pointer-events-auto",
+                        mobileInnerScrollClass
+                    )}
+                >
                     <div className="text-center z-10 text-black max-w-[95vw] md:max-w-[85vw]">
                         <p className="inline-block text-[0.6rem] md:text-sm tracking-[0.3em] md:tracking-[0.5em] uppercase mb-4 md:mb-6 px-3 py-1.5 md:px-4 md:py-2 bg-white font-inter">
                             Hi, i am Doyle Omachonu · CEO & Founder of Cribnosh and
@@ -114,7 +123,7 @@ export default function HomeClient() {
                         </div>
 
                         {/* HERO BUTTONS */}
-                        <div className="flex flex-wrap gap-4 mt-8 md:mt-12 pointer-events-auto justify-center">
+                        <div className="flex flex-wrap gap-4 mt-8 md:mt-12 justify-center">
                             <Link 
                                 href="/pieces"
                                 className="px-8 md:px-10 py-3 md:py-4 bg-black text-white font-oswald uppercase tracking-widest text-sm md:text-base hover:bg-white hover:text-black border border-black transition-all duration-300 pointer-events-auto"
@@ -136,7 +145,14 @@ export default function HomeClient() {
                 </section>
 
                 {/* --- SECTION 2: STATEMENT --- */}
-                <section ref={(el) => addToRefs(el, 1)} className="absolute inset-0 flex flex-col justify-center items-start p-6 md:p-32 opacity-0 overflow-y-auto md:overflow-hidden">
+                <section
+                    ref={(el) => addToRefs(el, 1)}
+                    data-lenis-prevent
+                    className={cn(
+                        "absolute inset-0 flex flex-col justify-center items-start p-6 pt-24 pb-10 md:p-32 opacity-0",
+                        mobileInnerScrollClass
+                    )}
+                >
                     <div className="max-w-[95vw] md:max-w-[85vw] w-full text-black mt-20 md:mt-0">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
                             {/* PORTRAIT PLACEHOLDER */}
@@ -152,17 +168,17 @@ export default function HomeClient() {
 
                             <div className="lg:col-span-8">
                                 <h2 className="text-4xl md:text-[5vw] font-medium leading-[1.1] mb-8 md:mb-12 tracking-tight font-oswald uppercase">
-                                    <span className="bg-white px-4 md:px-6 py-1.5 md:py-2 box-decoration-clone inline-block">The Drive for Representation</span>
+                                    <span className="bg-white px-4 md:px-6 py-1.5 md:py-2 box-decoration-clone inline-block">Leadership Thesis</span>
                                 </h2>
                                 <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start">
                                     <div className="bg-white px-4 md:px-6 py-3 md:py-4 flex-1">
                                         <p className="text-sm md:text-xl leading-relaxed font-inter">
-                                            Cribnosh was built out of a sense of responsibility. Arriving in the UK, Doyle recognized a mosaic of cultures, migrants, and global cuisines. Yet, there was a lack of representation in mainstream food delivery.
+                                            The future of food is not just faster delivery. It is fairer systems, stronger local economies, and better operating discipline from sourcing to last-mile experience.
                                         </p>
                                     </div>
                                     <div className="bg-white px-4 md:px-6 py-3 md:py-4 flex-1">
                                         <p className="text-sm md:text-xl leading-relaxed font-inter">
-                                            Cribnosh supports the human side of FoodTech—bridging the gap between home-cooked heritage and modern convenience, and giving a digital storefront to independent creators and recipe developers.
+                                            My work focuses on turning that thesis into execution: building trusted networks, measurable outcomes, and teams that can scale impact without losing integrity.
                                         </p>
                                     </div>
                                 </div>
@@ -172,52 +188,59 @@ export default function HomeClient() {
                 </section>
 
                 {/* --- SECTION 3: INNOVATION ECOSYSTEM (Horizontal) --- */}
-                <section ref={(el) => addToRefs(el, 2)} className="absolute inset-0 flex items-center overflow-hidden opacity-0">
+                <section
+                    ref={(el) => addToRefs(el, 2)}
+                    data-lenis-prevent
+                    className={cn(
+                        "absolute inset-0 flex items-center overflow-x-hidden opacity-0 p-6 pt-24 pb-10 md:p-0",
+                        mobileInnerScrollClass
+                    )}
+                >
                     <div ref={portfolioTrack} className="flex gap-6 md:gap-20 px-6 md:px-20 w-[500vw] md:w-[400vw]">
 
                         {/* Card 1: Analytical Approach */}
-                        <div className="w-[85vw] md:w-[60vw] h-[60vh] md:h-[70vh] bg-black/90 text-white p-6 md:p-12 flex flex-col justify-between shrink-0 relative overflow-hidden group border border-white/10 backdrop-blur-md">
-                            <div className="text-[10px] md:text-sm tracking-widest uppercase opacity-40 font-inter">Analytical Approach</div>
+                        <div className="w-[85vw] md:w-[60vw] h-[60vh] md:h-[70vh] bg-black/90 text-white p-6 md:p-12 flex flex-col justify-between shrink-0 relative overflow-y-auto md:overflow-hidden overscroll-y-contain [-webkit-overflow-scrolling:touch] group border border-white/10 backdrop-blur-md">
+                            <div className="text-[10px] md:text-sm tracking-widest uppercase opacity-40 font-inter">Case Study 01</div>
                             <div className="relative z-10">
-                                <h3 className="text-3xl md:text-6xl font-oswald uppercase mb-4 md:mb-6 leading-tight">Engineering a Better<br />Food Ecosystem</h3>
+                                <h3 className="text-3xl md:text-6xl font-oswald uppercase mb-4 md:mb-6 leading-tight">From Plant Floors to<br />Platform Thinking</h3>
                                 <p className="font-inter opacity-70 max-w-xl text-sm md:text-xl leading-relaxed">
-                                    Doyle brings a unique, highly analytical approach to the FoodTech space. Before architecting the &quot;Cribnosh Way,&quot; he spent years optimizing complex manufacturing and supply chain operations, driving efficiency and quality control across major production facilities.
+                                    Before founding Cribnosh, I spent years in operations and manufacturing, improving throughput, reducing defects, and building systems that perform under pressure.
                                 </p>
                             </div>
                             <div className="absolute top-6 md:top-10 right-6 md:right-10 text-6xl md:text-8xl font-oswald opacity-5 group-hover:opacity-10 transition-opacity">01</div>
                         </div>
 
                         {/* Card 2: Building the "Cribnosh Way" */}
-                        <div className="w-[85vw] md:w-[60vw] h-[60vh] md:h-[70vh] bg-white/90 text-black p-6 md:p-12 flex flex-col justify-between shrink-0 relative overflow-hidden group border border-black/10 backdrop-blur-md">
-                            <div className="text-[10px] md:text-sm tracking-widest uppercase opacity-40 font-inter">Innovation Ecosystem</div>
+                        <div className="w-[85vw] md:w-[60vw] h-[60vh] md:h-[70vh] bg-white/90 text-black p-6 md:p-12 flex flex-col justify-between shrink-0 relative overflow-y-auto md:overflow-hidden overscroll-y-contain [-webkit-overflow-scrolling:touch] group border border-black/10 backdrop-blur-md">
+                            <div className="text-[10px] md:text-sm tracking-widest uppercase opacity-40 font-inter">Case Study 02</div>
                             <div className="relative z-10">
-                                <h3 className="text-3xl md:text-6xl font-oswald uppercase mb-4 md:mb-6 leading-tight">Building the<br />&quot;Cribnosh Way&quot;</h3>
+                                <h3 className="text-3xl md:text-6xl font-oswald uppercase mb-4 md:mb-6 leading-tight">Turning Complexity<br />Into Clarity</h3>
                                 <p className="font-inter opacity-70 max-w-xl text-sm md:text-xl leading-relaxed">
-                                    Doyle actively cultivates a dynamic partnership ecosystem, collaborating closely with cutting-edge technical innovators like Marvengrey Technologies to ensure the platform is built for seamless, scalable operations.
+                                    I use strategy, data, and cross-functional leadership to translate messy market realities into clear decisions teams can execute with confidence.
                                 </p>
                             </div>
                             <div className="absolute top-6 md:top-10 right-6 md:right-10 text-6xl md:text-8xl font-oswald opacity-5 group-hover:opacity-10 transition-opacity">02</div>
                         </div>
 
                         {/* Card 3: Strategic Leadership */}
-                        <div className="w-[85vw] md:w-[60vw] h-[60vh] md:h-[70vh] bg-black/90 text-white p-6 md:p-12 flex flex-col justify-between shrink-0 relative overflow-hidden group border border-white/10 backdrop-blur-md">
-                            <div className="text-[10px] md:text-sm tracking-widest uppercase opacity-40 font-inter">Strategic Leadership</div>
+                        <div className="w-[85vw] md:w-[60vw] h-[60vh] md:h-[70vh] bg-black/90 text-white p-6 md:p-12 flex flex-col justify-between shrink-0 relative overflow-y-auto md:overflow-hidden overscroll-y-contain [-webkit-overflow-scrolling:touch] group border border-white/10 backdrop-blur-md">
+                            <div className="text-[10px] md:text-sm tracking-widest uppercase opacity-40 font-inter">Case Study 03</div>
                             <div className="relative z-10">
-                                <h3 className="text-3xl md:text-6xl font-oswald uppercase mb-4 md:mb-6 leading-tight">Data-Driven<br />Insights</h3>
+                                <h3 className="text-3xl md:text-6xl font-oswald uppercase mb-4 md:mb-6 leading-tight">Building Trust as<br />Infrastructure</h3>
                                 <p className="font-inter opacity-70 max-w-xl text-sm md:text-xl leading-relaxed">
-                                    Holding an MBA in Strategic Project Management from Edinburgh Napier University, his leadership is defined by data-driven insights and lean methodologies, focusing on the intersection of FoodTech and social impact.
+                                    Sustainable growth depends on trust. I focus on ethical supply chains, transparent standards, and governance models that protect both people and performance.
                                 </p>
                             </div>
                             <div className="absolute top-6 md:top-10 right-6 md:right-10 text-6xl md:text-8xl font-oswald opacity-5 group-hover:opacity-10 transition-opacity">03</div>
                         </div>
 
                         {/* Card 4: Scaling & Innovation */}
-                        <div className="w-[85vw] md:w-[60vw] h-[60vh] md:h-[70vh] bg-white/90 text-black p-6 md:p-12 flex flex-col justify-between shrink-0 relative overflow-hidden group border border-black/10 backdrop-blur-md">
-                            <div className="text-[10px] md:text-sm tracking-widest uppercase opacity-40 font-inter">Scaling & Innovation</div>
+                        <div className="w-[85vw] md:w-[60vw] h-[60vh] md:h-[70vh] bg-white/90 text-black p-6 md:p-12 flex flex-col justify-between shrink-0 relative overflow-y-auto md:overflow-hidden overscroll-y-contain [-webkit-overflow-scrolling:touch] group border border-black/10 backdrop-blur-md">
+                            <div className="text-[10px] md:text-sm tracking-widest uppercase opacity-40 font-inter">Case Study 04</div>
                             <div className="relative z-10">
-                                <h3 className="text-3xl md:text-6xl font-oswald uppercase mb-4 md:mb-6 leading-tight">Supporting the<br />Gig Economy</h3>
+                                <h3 className="text-3xl md:text-6xl font-oswald uppercase mb-4 md:mb-6 leading-tight">Leading with Inclusion<br />and Performance</h3>
                                 <p className="font-inter opacity-70 max-w-xl text-sm md:text-xl leading-relaxed">
-                                    Using technology to support the gig economy, Doyle focuses on the standard for homemade food delivery across the UK through partnership ecosystems.
+                                    I believe inclusive teams and disciplined operations are not trade-offs. They are the foundation for long-term resilience, innovation, and economic value.
                                 </p>
                             </div>
                             <div className="absolute top-6 md:top-10 right-6 md:right-10 text-6xl md:text-8xl font-oswald opacity-5 group-hover:opacity-10 transition-opacity">04</div>
@@ -227,9 +250,16 @@ export default function HomeClient() {
                 </section>
 
                 {/* --- SECTION 4: FOOTER --- */}
-                <section ref={(el) => addToRefs(el, 3)} className="absolute inset-0 flex flex-col justify-center items-center bg-black/90 text-white pointer-events-auto opacity-0 z-20 backdrop-blur-md">
+                <section
+                    ref={(el) => addToRefs(el, 3)}
+                    data-lenis-prevent
+                    className={cn(
+                        "absolute inset-0 flex flex-col justify-center items-center bg-black/90 text-white pointer-events-auto opacity-0 z-20 backdrop-blur-md p-6 pt-24 pb-10 md:p-0",
+                        mobileInnerScrollClass
+                    )}
+                >
                     <h2 className="text-5xl md:text-8xl font-bold mb-12 tracking-tight font-oswald uppercase text-center">
-                        Connect<br />with Doyle
+                        Collaborate<br />with Doyle
                     </h2>
                     
                     <div className="flex flex-col md:flex-row gap-6 items-center">
@@ -239,19 +269,19 @@ export default function HomeClient() {
                             rel="noreferrer"
                             className="px-12 py-6 border border-white rounded-full hover:bg-white hover:text-black transition-all duration-500 text-xl uppercase tracking-widest cursor-pointer font-inter group relative overflow-hidden"
                         >
-                            <span className="relative z-10">LinkedIn Profile</span>
+                            <span className="relative z-10">Speaking & Panels</span>
                         </a>
                         
                         <Link
-                             href="/pieces"
+                             href="/letter"
                              className="px-12 py-6 bg-white text-black rounded-full hover:bg-transparent hover:text-white border border-white transition-all duration-500 text-xl uppercase tracking-widest cursor-pointer font-inter"
                          >
-                             Pieces
+                             Open Letter
                          </Link>
                     </div>
 
                     <div className="absolute bottom-10 left-10 text-xs text-gray-500 font-inter tracking-widest uppercase">
-                        © 2026 Doyle Omachonu · Cribnosh
+                        © 2026 Doyle Omachonu
                     </div>
                 </section>
 

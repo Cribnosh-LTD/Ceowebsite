@@ -43,8 +43,6 @@ export const metadata: Metadata = {
   },
 };
 
-import { ConvexClientProvider } from "@/components/ConvexClientProvider";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -76,9 +74,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${oswald.variable} ${inter.variable} font-sans`}>
-        <ConvexClientProvider>
-          {children}
-        </ConvexClientProvider>
+        {children}
       </body>
     </html>
   );

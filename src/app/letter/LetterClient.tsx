@@ -26,11 +26,11 @@ export default function LetterClient() {
             <main ref={container} className="min-h-screen bg-[#fafafa] text-black pt-24 md:pt-40 pb-12 md:pb-20 px-6 md:px-0">
                 <div ref={content} className="max-w-3xl mx-auto font-inter">
                     <p className="text-[10px] md:text-sm tracking-[0.2em] md:tracking-[0.3em] uppercase mb-8 md:mb-12 opacity-50 font-oswald">
-                        Message from the Founder
+                        Open Letter
                     </p>
                     
                     <h1 className="text-3xl md:text-6xl font-oswald uppercase mb-10 md:mb-16 leading-[1.1] tracking-tight">
-                        Read my Pieces: <br /><span className="text-gray-400">An Open Invitation</span>
+                        What I Build, <br /><span className="text-gray-400">Why It Matters</span>
                     </h1>
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-12 items-start">
@@ -52,44 +52,44 @@ export default function LetterClient() {
 
                         <div className="lg:col-span-8 lg:order-1 space-y-6 md:space-y-8 text-base md:text-xl leading-relaxed text-gray-800">
                             <p className="font-medium text-black">
-                                To the creators, the home cooks, and the hidden culinary artists of the UK,
+                                To founders, operators, and institutions building the next decade of food and infrastructure,
                             </p>
 
                             <p className="text-xl md:text-3xl font-oswald uppercase text-black py-2 md:py-4">
-                                Welcome to a new era of food delivery.
+                                I believe leadership is the design of durable systems.
                             </p>
 
                             <p>
-                                This is a realization: the UK is a vibrant mosaic of cultures and global cuisines, yet that diversity is often missing from mainstream delivery platforms. There is a system that favors mass-market chains while sidelining the home-cooked heritage that connects us to our communities.
+                                The most important businesses of this era will not be measured by scale alone. They will be measured by whether they strengthen trust, expand opportunity, and improve everyday life for the people who depend on them.
                             </p>
 
                             <p>
-                                Food is more than sustenance; it is a connection to home and culture. That is why we are building a platform dedicated to representation. Whether you are a recipe developer, a stay-at-home parent with a digital storefront, or a student sharing a taste of home, Cribnosh is a launchpad.
+                                My background in operations, supply chains, and strategy taught me that outcomes follow systems. When incentives are clear, standards are high, and teams are empowered, performance compounds.
                             </p>
 
                             <p>
-                                We are here to bridge the gap between home-cooked heritage and modern convenience. By providing the technology, logistics, and data-driven insights needed, we are supporting the &quot;hidden economy&quot; of home chefs.
+                                This is the lens I bring to every project, boardroom, and partnership: combine analytical rigor with social responsibility, and build models that are both efficient and humane.
                             </p>
 
                             <p>
-                                This is a chance to share your craft with a wider audience. Join us, and let&apos;s redefine what food delivery means, together.
+                                I share ideas publicly to contribute to better leadership in food systems, workforce design, and sustainable growth. If these themes align with your work, I would value a conversation.
                             </p>
 
                             <div className="pt-4 md:pt-6">
                                 <a 
-                                    href="https://cribnosh.co.uk" 
+                                    href="https://www.linkedin.com/in/doyle-omachonu-9907981a0/" 
                                     target="_blank" 
                                     rel="noreferrer"
                                     className="inline-block px-8 py-4 bg-black text-white font-oswald uppercase tracking-widest text-sm md:text-base hover:bg-gray-800 transition-all duration-300"
                                 >
-                                    Visit Cribnosh
+                                    Connect on LinkedIn
                                 </a>
                             </div>
 
                             <div className="pt-8 md:pt-12 border-t border-gray-200 mt-12 md:mt-16">
                                 <p className="font-oswald uppercase tracking-widest text-[10px] md:text-sm opacity-50 mb-3 md:mb-4">Sincerely,</p>
                                 <p className="text-xl md:text-2xl font-oswald uppercase">— Doyle Omachonu</p>
-                                <p className="text-xs md:text-sm opacity-60">Cribnosh</p>
+                                <p className="text-xs md:text-sm opacity-60">Founder & CEO</p>
                             </div>
                         </div>
                     </div>

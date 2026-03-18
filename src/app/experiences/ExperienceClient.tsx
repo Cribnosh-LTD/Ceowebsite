@@ -54,10 +54,10 @@ export default function ExperienceClient() {
                     <div className="lg:col-span-8 order-2 lg:order-1">
                         <header className="mb-12 md:mb-20">
                             <h1 className="text-4xl md:text-7xl font-oswald uppercase tracking-tight mb-4 md:mb-6">
-                                Professional <span className="text-gray-500">Journey</span>
+                                Operator <span className="text-gray-500">Journey</span>
                             </h1>
                             <p className="text-base md:text-xl text-gray-400 font-inter max-w-2xl leading-relaxed">
-                                From Operations to FoodTech: A journey in strategic optimization and innovation.
+                                A track record in operations, strategy, and venture building across complex systems.
                             </p>
                         </header>
 
@@ -71,16 +71,16 @@ export default function ExperienceClient() {
                                     <span className="text-[10px] md:text-sm font-inter tracking-widest text-white/40 uppercase">Dec 2024 – Present</span>
                                 </div>
                                 <p className="text-sm md:text-lg text-gray-400 mb-6 font-inter leading-relaxed">
-                                    Doyle leads the strategic growth and brand for Cribnosh, supporting the platform’s expansion in the UK market. He is building a data-driven ecosystem for the &quot;hidden economy&quot; of home chefs.
+                                    Leading company strategy, ecosystem partnerships, and operating model design to build a trusted, scalable platform in the UK food economy.
                                 </p>
                                 <div className="flex gap-4 md:gap-8">
                                     <div className="bg-white/5 border border-white/10 p-3 md:p-4 rounded-lg flex-1 md:flex-none">
                                         <div className="text-xl md:text-2xl font-oswald text-white">0-to-1</div>
-                                        <div className="text-[8px] md:text-[10px] uppercase tracking-widest text-gray-500">Scaling</div>
+                                        <div className="text-[8px] md:text-[10px] uppercase tracking-widest text-gray-500">Company Build</div>
                                     </div>
                                     <div className="bg-white/5 border border-white/10 p-3 md:p-4 rounded-lg flex-1 md:flex-none">
                                         <div className="text-xl md:text-2xl font-oswald text-white">2026</div>
-                                        <div className="text-[8px] md:text-[10px] uppercase tracking-widest text-gray-500">Vision</div>
+                                        <div className="text-[8px] md:text-[10px] uppercase tracking-widest text-gray-500">Leadership Horizon</div>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@ export default function ExperienceClient() {
                                     <span className="text-[10px] md:text-sm font-inter tracking-widest text-white/40 uppercase">Sept 2022 – May 2024</span>
                                 </div>
                                 <p className="text-sm md:text-lg text-gray-400 mb-6 font-inter leading-relaxed">
-                                    Doyle pursued his MBA in Strategic Project Management at Edinburgh Napier University. This phase served as the incubator for Cribnosh. Simultaneously, he applied these strategies as the CEO of AltDream.
+                                    Combined postgraduate strategy training with venture execution, translating academic frameworks into practical operating decisions and market testing.
                                 </p>
                                 <div className="grid grid-cols-1 gap-4">
                                     <div className="bg-white/5 border border-white/10 p-3 md:p-4 rounded-lg flex items-center gap-4">
@@ -111,7 +111,7 @@ export default function ExperienceClient() {
                                     <span className="text-[10px] md:text-sm font-inter tracking-widest text-white/40 uppercase">Nov 2021 – Sept 2023</span>
                                 </div>
                                 <p className="text-sm md:text-lg text-gray-400 mb-6 font-inter leading-relaxed">
-                                    Led digital transformation initiatives, including CRM integration and automated workflows between marketing and development.
+                                    Led digital transformation programs across teams, improving decision velocity through better systems, automation, and cross-functional alignment.
                                 </p>
                                 <div className="flex gap-4">
                                     <div className="bg-white/5 border border-white/10 p-3 md:p-4 rounded-lg">
@@ -129,7 +129,7 @@ export default function ExperienceClient() {
                                     <span className="text-[10px] md:text-sm font-inter tracking-widest text-white/40 uppercase">July 2017 – Aug 2022</span>
                                 </div>
                                 <p className="text-sm md:text-lg text-gray-400 mb-8 font-inter leading-relaxed">
-                                    Worked in physical supply chains, engineering, and manufacturing across FMCG companies, including Grand Cereals Limited and NASCO Group.
+                                    Built a foundation in manufacturing and supply chain leadership, with focus on reliability, throughput, quality control, and continuous improvement.
                                 </p>
                                 
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6">

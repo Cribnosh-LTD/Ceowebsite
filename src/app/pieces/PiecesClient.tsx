@@ -6,13 +6,12 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-import { useQuery } from "convex/react";
-import { api } from "../../../convex/_generated/api";
+import { featuredPieces } from "@/content/piecesContent";
 
 export default function PiecesClient() {
-    const pieces = useQuery(api.pieces.get);
     const container = useRef<HTMLDivElement>(null);
     const content = useRef<HTMLDivElement>(null);
+    const allPieces = featuredPieces;
 
     useGSAP(() => {
         if (!content.current) return;
@@ -21,7 +20,7 @@ export default function PiecesClient() {
             { opacity: 0, y: 30 }, 
             { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out", delay: 0.2 }
         );
-    }, [pieces]);
+    }, []);
 
     return (
         <SmoothScroll>
@@ -29,22 +28,24 @@ export default function PiecesClient() {
             <main ref={container} className="min-h-screen bg-[#fafafa] text-black pt-24 md:pt-40 pb-12 md:pb-20 px-6 md:px-0">
                 <div className="max-w-5xl mx-auto font-inter">
                     <p className="text-[10px] md:text-sm tracking-[0.2em] md:tracking-[0.3em] uppercase mb-8 md:mb-12 opacity-50 font-oswald">
-                        Pieces & Mentions
+                        Ideas, Essays, and Mentions
                     </p>
                     
                     <h1 className="text-3xl md:text-6xl font-oswald uppercase mb-16 md:mb-24 leading-[1.1] tracking-tight">
-                        Written & <span className="text-gray-400">Featured</span>
+                        Thinking in <span className="text-gray-400">Public</span>
                     </h1>
 
+                    <p className="text-sm md:text-lg text-gray-600 max-w-3xl leading-relaxed mb-10 md:mb-16 font-inter">
+                        A curated collection of writing and media on leadership, operational excellence, food systems, and socially responsible growth.
+                    </p>
+
                     <div ref={content} className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                        {pieces === undefined ? (
-                            <div className="col-span-full text-center py-20 opacity-50 uppercase tracking-widest text-sm">Loading...</div>
-                        ) : pieces.length === 0 ? (
+                        {allPieces.length === 0 ? (
                             <div className="col-span-full text-center py-20 opacity-50 uppercase tracking-widest text-sm">No pieces found.</div>
                         ) : (
-                            pieces.map((piece, index) => (
+                            allPieces.map((piece) => (
                                 <a 
-                                    key={index}
+                                    key={`${piece.url}-${piece.title}`}
                                     href={piece.url}
                                     target={piece.url.startsWith("http") ? "_blank" : "_self"}
                                     rel={piece.url.startsWith("http") ? "noreferrer" : ""}
