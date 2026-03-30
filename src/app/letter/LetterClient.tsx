@@ -35,7 +35,7 @@ export default function LetterClient() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-12 items-start">
                         {/* PORTRAIT SIDEBAR - Moves to top on mobile */}
-                        <div className="lg:col-span-4 lg:order-2 sticky top-24 md:top-40 mb-8 md:mb-0">
+                        <div className="lg:col-span-4 lg:order-2 lg:sticky lg:top-40 mb-8 md:mb-0">
                             <div className="aspect-[3/4] bg-white border border-gray-200 shadow-lg md:shadow-xl relative overflow-hidden group">
                                 <Image 
                                     src="/doyle-omachonu.png"
