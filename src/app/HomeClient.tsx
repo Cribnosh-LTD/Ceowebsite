@@ -39,7 +39,11 @@ export default function HomeClient() {
         const slowConnection = ["slow-2g", "2g", "3g"].includes(nav.connection?.effectiveType ?? "");
 
         const shouldDisable3D = isMobile && (prefersReducedMotion || lowCpu || lowMemory || saveData || slowConnection);
-        setShouldRenderScene(!shouldDisable3D);
+        const frame = window.requestAnimationFrame(() => {
+            setShouldRenderScene(!shouldDisable3D);
+        });
+
+        return () => window.cancelAnimationFrame(frame);
     }, []);
 
     useGSAP(() => {
