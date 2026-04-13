@@ -12,12 +12,44 @@ export type PieceArticle = {
   date: string;
   category: PieceCategory;
   description: string;
+  externalUrl?: string;
   intro: string;
   sections: PieceSection[];
   closing: string;
 };
 
 export const pieceArticles: PieceArticle[] = [
+  {
+    slug: "taste-as-experience-and-influence",
+    title: "Taste as Experience and Influence: How Food Creators Are Turning Flavour into Social Currency",
+    source: "LinkedIn Article",
+    date: "Apr 2026",
+    category: "By Me",
+    description:
+      "Food today is about much more than basic sustenance. It is a full sensory and social experience.",
+    externalUrl:
+      "https://www.linkedin.com/pulse/taste-experience-influence-how-food-creators-turning-flavour-doyle-1kiqe/",
+    intro:
+      "This article explores how taste now sits at the intersection of experience, culture, and influence, and why food creators are becoming central voices in that shift.",
+    sections: [
+      {
+        heading: "What This Piece Covers",
+        paragraphs: [
+          "A perspective on how flavour, storytelling, and audience connection are reshaping the role of food creators.",
+          "The article frames food as both sensory craft and social currency in modern digital ecosystems.",
+        ],
+      },
+      {
+        heading: "Read the Full Article",
+        paragraphs: [
+          "Read the original LinkedIn publication here:",
+          "https://www.linkedin.com/pulse/taste-experience-influence-how-food-creators-turning-flavour-doyle-1kiqe/",
+        ],
+      },
+    ],
+    closing:
+      "The full article is available on LinkedIn for complete context and examples.",
+  },
   {
     slug: "social-sustainability-as-operating-strategy",
     title: "Social Sustainability Is an Operating Strategy, Not a CSR Add-On",
@@ -312,7 +344,7 @@ export const featuredPieces = pieceArticles.map((piece) => ({
   title: piece.title,
   source: piece.source,
   date: piece.date,
-  url: `/pieces/${piece.slug}`,
+  url: piece.externalUrl ?? `/pieces/${piece.slug}`,
   category: piece.category,
   description: piece.description,
 }));
