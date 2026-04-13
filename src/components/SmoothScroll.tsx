@@ -9,6 +9,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
+    const clearScrollLock = () => {
+      document.documentElement.classList.remove("lenis-stopped");
+      document.body.classList.remove("lenis-stopped");
+      document.documentElement.style.removeProperty("overflow");
+      document.body.style.removeProperty("overflow");
+    };
+
+    clearScrollLock();
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -30,6 +39,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     return () => {
       lenis.destroy();
       gsap.ticker.remove(onTick);
+      clearScrollLock();
     };
   }, []);
 

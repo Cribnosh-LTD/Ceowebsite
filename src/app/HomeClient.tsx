@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -15,25 +15,32 @@ const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Simple Text Splitter Component
-function SplitText({ children, className }: { children: string; className?: string }) {
-    return (
-        <span className={cn("inline-block overflow-hidden align-bottom", className)}>
-            {children.split("").map((char, i) => (
-                <span key={i} className="char inline-block translate-y-full opacity-0">
-                    {char === " " ? "\u00A0" : char}
-                </span>
-            ))}
-        </span>
-    );
-}
-
 export default function HomeClient() {
     const container = useRef<HTMLDivElement>(null);
     const portfolioTrack = useRef<HTMLDivElement>(null);
     const sections = useRef<(HTMLElement | null)[]>([]);
+    const [shouldRenderScene, setShouldRenderScene] = useState(false);
     const mobileInnerScrollClass =
-        "overflow-y-auto md:overflow-hidden overscroll-y-contain [touch-action:pan-y] [-webkit-overflow-scrolling:touch]";
+        "overflow-y-auto md:overflow-hidden [touch-action:pan-y] [-webkit-overflow-scrolling:touch]";
+
+    useEffect(() => {
+        const nav = navigator as Navigator & {
+            deviceMemory?: number;
+            connection?: { saveData?: boolean; effectiveType?: string };
+        };
+        const isMobileViewport = window.matchMedia("(max-width: 768px)").matches;
+        const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+        const isMobile = isMobileViewport || isTouchDevice;
+
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const lowCpu = (navigator.hardwareConcurrency ?? 8) <= 4;
+        const lowMemory = (nav.deviceMemory ?? 8) <= 4;
+        const saveData = Boolean(nav.connection?.saveData);
+        const slowConnection = ["slow-2g", "2g", "3g"].includes(nav.connection?.effectiveType ?? "");
+
+        const shouldDisable3D = isMobile && (prefersReducedMotion || lowCpu || lowMemory || saveData || slowConnection);
+        setShouldRenderScene(!shouldDisable3D);
+    }, []);
 
     useGSAP(() => {
         if (!container.current) return;
@@ -95,7 +102,7 @@ export default function HomeClient() {
     return (
         <SmoothScroll>
             <Header />
-            <Scene />
+            {shouldRenderScene ? <Scene /> : <div className="fixed inset-0 z-0 pointer-events-none bg-white" aria-hidden="true" />}
 
             {/* FIXED VIEWPORT */}
             <main ref={container} className="fixed top-0 left-0 w-full h-[100dvh] z-10 font-sans text-black">
@@ -103,7 +110,6 @@ export default function HomeClient() {
                 {/* --- SECTION 1: HERO --- */}
                 <section
                     ref={(el) => addToRefs(el, 0)}
-                    data-lenis-prevent
                     className={cn(
                         "absolute inset-0 flex flex-col justify-center items-center p-6 pt-24 pb-10 md:p-10 pointer-events-auto",
                         mobileInnerScrollClass
@@ -147,7 +153,6 @@ export default function HomeClient() {
                 {/* --- SECTION 2: STATEMENT --- */}
                 <section
                     ref={(el) => addToRefs(el, 1)}
-                    data-lenis-prevent
                     className={cn(
                         "absolute inset-0 flex flex-col justify-center items-start p-6 pt-24 pb-10 md:p-32 opacity-0",
                         mobileInnerScrollClass
@@ -190,7 +195,6 @@ export default function HomeClient() {
                 {/* --- SECTION 3: INNOVATION ECOSYSTEM (Horizontal) --- */}
                 <section
                     ref={(el) => addToRefs(el, 2)}
-                    data-lenis-prevent
                     className={cn(
                         "absolute inset-0 flex items-center overflow-x-hidden opacity-0 p-6 pt-24 pb-10 md:p-0",
                         mobileInnerScrollClass
@@ -252,7 +256,6 @@ export default function HomeClient() {
                 {/* --- SECTION 4: FOOTER --- */}
                 <section
                     ref={(el) => addToRefs(el, 3)}
-                    data-lenis-prevent
                     className={cn(
                         "absolute inset-0 flex flex-col justify-center items-center bg-black/90 text-white pointer-events-auto opacity-0 z-20 backdrop-blur-md p-6 pt-24 pb-10 md:p-0",
                         mobileInnerScrollClass
