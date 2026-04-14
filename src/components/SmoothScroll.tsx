@@ -16,30 +16,58 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       document.body.style.removeProperty("overflow");
     };
 
-    clearScrollLock();
+    const mobileViewport = window.matchMedia("(max-width: 767px)");
+    const coarsePointer = window.matchMedia("(pointer: coarse)");
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-    });
+    let lenis: Lenis | null = null;
+    let onTick: ((time: number) => void) | null = null;
 
-    lenis.on("scroll", ScrollTrigger.update);
+    const teardownLenis = () => {
+      if (onTick) {
+        gsap.ticker.remove(onTick);
+        onTick = null;
+      }
 
-    const onTick = (time: number) => {
-      lenis.raf(time * 1000);
+      if (lenis) {
+        lenis.destroy();
+        lenis = null;
+      }
+
+      clearScrollLock();
     };
 
-    gsap.ticker.add(onTick);
+    const applyScrollMode = () => {
+      const useNativeScroll = mobileViewport.matches || coarsePointer.matches;
+      teardownLenis();
 
-    gsap.ticker.lagSmoothing(0);
+      if (useNativeScroll) return;
+
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+      });
+
+      lenis.on("scroll", ScrollTrigger.update);
+
+      onTick = (time: number) => {
+        lenis?.raf(time * 1000);
+      };
+
+      gsap.ticker.add(onTick);
+      gsap.ticker.lagSmoothing(0);
+    };
+
+    applyScrollMode();
+    mobileViewport.addEventListener("change", applyScrollMode);
+    coarsePointer.addEventListener("change", applyScrollMode);
 
     return () => {
-      lenis.destroy();
-      gsap.ticker.remove(onTick);
-      clearScrollLock();
+      mobileViewport.removeEventListener("change", applyScrollMode);
+      coarsePointer.removeEventListener("change", applyScrollMode);
+      teardownLenis();
     };
   }, []);
 
