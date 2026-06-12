@@ -78,6 +78,7 @@ export default function HomeClient() {
     const portfolioTrack = useRef<HTMLDivElement>(null);
     const sections = useRef<(HTMLElement | null)[]>([]);
     const [shouldRenderScene, setShouldRenderScene] = useState(false);
+    const [sceneTone, setSceneTone] = useState<"default" | "thesis">("default");
     const [isMobileLayout, setIsMobileLayout] = useState<boolean | null>(null);
 
     useEffect(() => {
@@ -99,12 +100,14 @@ export default function HomeClient() {
         };
 
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const lowCpu = (navigator.hardwareConcurrency ?? 8) <= 4;
-        const lowMemory = (nav.deviceMemory ?? 8) <= 4;
+        const cpuThreads = navigator.hardwareConcurrency ?? 8;
+        const memoryGb = nav.deviceMemory ?? 8;
         const saveData = Boolean(nav.connection?.saveData);
         const slowConnection = ["slow-2g", "2g", "3g"].includes(nav.connection?.effectiveType ?? "");
+        const constrainedDevice = cpuThreads <= 2 || memoryGb <= 2;
+        const constrainedDesktop = !isMobileLayout && slowConnection && (cpuThreads <= 4 || memoryGb <= 4);
 
-        const shouldDisable3D = isMobileLayout || prefersReducedMotion || lowCpu || lowMemory || saveData || slowConnection;
+        const shouldDisable3D = isMobileLayout || prefersReducedMotion || saveData || constrainedDevice || constrainedDesktop;
         const frame = window.requestAnimationFrame(() => {
             setShouldRenderScene(!shouldDisable3D);
         });
@@ -116,12 +119,23 @@ export default function HomeClient() {
         () => {
             if (!container.current || isMobileLayout !== false) return;
 
+            let activeTone: "default" | "thesis" = "default";
+            const updateSceneTone = (nextTone: "default" | "thesis") => {
+                if (activeTone === nextTone) return;
+                activeTone = nextTone;
+                setSceneTone(nextTone);
+            };
+
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: document.body,
                     start: "top top",
                     end: "bottom bottom",
                     scrub: 1,
+                    onUpdate: (self) => {
+                        const nextTone = self.progress >= 0.15 && self.progress < 0.45 ? "thesis" : "default";
+                        updateSceneTone(nextTone);
+                    },
                 },
                 defaults: { ease: "power1.inOut" },
             });
@@ -133,7 +147,6 @@ export default function HomeClient() {
 
             tl.to(sec1, { opacity: 0, scale: 0.95, filter: "blur(10px)", duration: 0.15 }, 0);
             tl.fromTo(sec2, { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 0.05 }, 0.15);
-            tl.to(sec2?.querySelectorAll(".char") || [], { y: 0, opacity: 1, stagger: 0.02, duration: 0.05 }, 0.2);
             tl.to(sec2, { opacity: 0, y: -50, filter: "blur(5px)", duration: 0.05 }, 0.4);
             tl.fromTo(sec3, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 0.45);
 
@@ -145,6 +158,7 @@ export default function HomeClient() {
             tl.fromTo(sec4, { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 0.1 }, 0.9);
 
             return () => {
+                setSceneTone("default");
                 tl.scrollTrigger?.kill();
                 tl.kill();
             };
@@ -159,7 +173,7 @@ export default function HomeClient() {
     return (
         <SmoothScroll>
             <Header />
-            {shouldRenderScene ? <Scene /> : <div className="fixed inset-0 z-0 bg-white" aria-hidden="true" />}
+            {shouldRenderScene ? <Scene tone={sceneTone} /> : <div className="fixed inset-0 z-0 bg-white" aria-hidden="true" />}
 
             <main ref={container} className="relative z-10 font-sans text-black md:fixed md:left-0 md:top-0 md:h-[100dvh] md:w-full">
                 <section
@@ -255,7 +269,7 @@ export default function HomeClient() {
                         with Doyle
                     </h2>
 
-                    <div className="flex w-full max-w-sm flex-col gap-4 md:max-w-none md:flex-row md:gap-6">
+                    <div className="flex w-full max-w-sm flex-col items-center gap-4 md:max-w-none md:flex-row md:justify-center md:gap-6">
                         <a
                             href="https://www.linkedin.com/in/doyle-omachonu-9907981a0/"
                             target="_blank"

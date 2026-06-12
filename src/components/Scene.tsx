@@ -1,95 +1,93 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
-import { MeshDistortMaterial, Environment } from "@react-three/drei";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { MeshDistortMaterial } from "@react-three/drei";
 import { useRef } from "react";
 import * as THREE from "three";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+type SceneTone = "default" | "thesis";
 
-function Blob() {
+const SCENE_THEMES: Record<
+    SceneTone,
+    {
+        background: string;
+        glow: string;
+        material: string;
+        emissive: string;
+        rimLight: string;
+    }
+> = {
+    default: {
+        background: "#f4f1ea",
+        glow: "radial-gradient(circle_at_74%_40%,rgba(15,23,42,0.08),transparent_22%),radial-gradient(circle_at_28%_24%,rgba(148,163,184,0.18),transparent_24%)",
+        material: "#1f2937",
+        emissive: "#1f2937",
+        rimLight: "#94a3b8",
+    },
+    thesis: {
+        background: "#f5ece8",
+        glow: "radial-gradient(circle_at_72%_42%,rgba(255,59,48,0.22),transparent_24%),radial-gradient(circle_at_26%_22%,rgba(255,190,184,0.2),transparent_24%)",
+        material: "#ff3b30",
+        emissive: "#d12d1d",
+        rimLight: "#ffb4ae",
+    },
+};
+
+function Blob({ tone }: { tone: SceneTone }) {
     const meshRef = useRef<THREE.Mesh>(null);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const materialRef = useRef<any>(null);
+    const colorRef = useRef(new THREE.Color(SCENE_THEMES.default.material));
+    const emissiveRef = useRef(new THREE.Color(SCENE_THEMES.default.emissive));
 
-    useGSAP(() => {
+    useFrame((state) => {
         if (!meshRef.current || !materialRef.current) return;
 
-        const mesh = meshRef.current;
-        const material = materialRef.current;
-
-        const timeline = gsap.timeline({
-            scrollTrigger: {
-                trigger: "body",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 1,
-            },
-        });
-
-        // Morph the blob based on scroll
-        timeline.to(material, {
-            distort: 0.8,
-            speed: 3,
-            duration: 1,
-            ease: "power1.inOut",
-        });
-
-        // Rotate the mesh
-        timeline.to(
-            mesh.rotation,
-            {
-                x: Math.PI * 2,
-                y: Math.PI * 2,
-                duration: 1,
-                ease: "none",
-            },
-            "<"
-        );
-
-        // Change color using hex
-        const colors = ["#2A2A2A", "#3B82F6", "#10B981", "#F59E0B"];
-        colors.forEach((color, i) => {
-            timeline.to(material.color, {
-                r: new THREE.Color(color).r,
-                g: new THREE.Color(color).g,
-                b: new THREE.Color(color).b,
-                duration: 1 / colors.length,
-            }, i * (1 / colors.length));
-        });
-
+        const elapsed = state.clock.getElapsedTime();
+        const theme = SCENE_THEMES[tone];
+        meshRef.current.rotation.x = elapsed * 0.18;
+        meshRef.current.rotation.y = elapsed * 0.28;
+        meshRef.current.position.y = Math.sin(elapsed * 0.7) * 0.18;
+        materialRef.current.distort = 0.28 + Math.sin(elapsed * 1.2) * 0.08;
+        colorRef.current.lerp(new THREE.Color(theme.material), 0.08);
+        emissiveRef.current.lerp(new THREE.Color(theme.emissive), 0.08);
+        materialRef.current.color.copy(colorRef.current);
+        materialRef.current.emissive.copy(emissiveRef.current);
     });
 
     return (
-        <mesh ref={meshRef} scale={2.5}>
-            <sphereGeometry args={[1, 64, 64]} />
+        <mesh ref={meshRef} position={[1.95, 0.1, -0.2]} scale={2.35}>
+            <icosahedronGeometry args={[1, 32]} />
             <MeshDistortMaterial
                 ref={materialRef}
-                color="#2A2A2A"
-                distort={0.4}
-                speed={1.5}
-                roughness={0.2}
-                metalness={0.8}
+                color={SCENE_THEMES.default.material}
+                distort={0.32}
+                speed={1.2}
+                roughness={0.08}
+                metalness={0.15}
+                emissive={SCENE_THEMES.default.emissive}
+                emissiveIntensity={0.12}
             />
         </mesh>
     );
 }
 
-export default function Scene() {
+export default function Scene({ tone = "default" }: { tone?: SceneTone }) {
+    const theme = SCENE_THEMES[tone];
+
     return (
-        <div className="fixed inset-0 z-0 pointer-events-none bg-white" aria-hidden="true">
+        <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden" style={{ backgroundColor: theme.background }} aria-hidden="true">
+            <div className="absolute inset-0" style={{ backgroundImage: theme.glow }} />
             <Canvas
                 className="pointer-events-none"
                 style={{ pointerEvents: "none", touchAction: "auto" }}
                 dpr={[1, 1.5]}
-                camera={{ position: [0, 0, 5], fov: 45 }}
+                camera={{ position: [0, 0, 6], fov: 42 }}
             >
-                <Environment preset="studio" />
-                <ambientLight intensity={0.5} />
-                <Blob />
+                <ambientLight intensity={0.9} />
+                <directionalLight position={[4, 3, 5]} intensity={1.65} color="#ffffff" />
+                <directionalLight position={[-4, -2, 3]} intensity={0.4} color={theme.rimLight} />
+                <Blob tone={tone} />
             </Canvas>
         </div>
     );
